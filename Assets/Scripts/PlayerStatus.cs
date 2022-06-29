@@ -16,13 +16,13 @@ public class PlayerStatus : MonoBehaviour
     public PlayerInventory playerInventory;
     public GameObject weaponHolder;
 
-    [ReadOnly] [SerializeField] private GameObject weaponGameObject;
+    [SerializeField] private GameObject weaponGameObject;
 
-    [ReadOnly] [SerializeField] private Weapon.WeaponName weaponName;
-    [ReadOnly] [SerializeField] private Weapon.WeaponType weaponType;
-    [ReadOnly] [SerializeField] private float weaponDamage;
-    [ReadOnly] [SerializeField] private float weaponFirerate;
-    [ReadOnly] [SerializeField] private float weaponBulletSpeed;
+    [SerializeField] private Weapon.WeaponName weaponName;
+    [SerializeField] private Weapon.WeaponType weaponType;
+    [SerializeField] private float weaponDamage;
+    [SerializeField] private float weaponFirerate;
+    [SerializeField] private float weaponBulletSpeed;
 
     private void Start()
     {
