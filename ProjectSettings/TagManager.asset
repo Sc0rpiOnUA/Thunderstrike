@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
+  - BulletSpawner
+  - Weapon
+  - BulletContainer
   layers:
   - Default
   - TransparentFX

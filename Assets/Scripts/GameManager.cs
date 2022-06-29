@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject playerSpawner;
+    public CinemachineVirtualCamera virtualCamera;
 
     public GameObject playerGameObject;
-    public PlayerStatus playerStatus;
-    public CinemachineVirtualCamera virtualCamera;
+    public PlayerStatus playerStatus;    
 
     private void Start()
     {
@@ -20,35 +20,38 @@ public class GameManager : MonoBehaviour
     private void StartTheGame()
     {
         playerGameObject = Instantiate(playerPrefab, playerSpawner.transform.position, playerSpawner.transform.rotation);
-        
-        playerStatus = playerGameObject.GetComponent<PlayerStatus>();
         virtualCamera.Follow = playerGameObject.transform;
         virtualCamera.LookAt = playerGameObject.transform;
-        
+
+        playerStatus = playerGameObject.GetComponent<PlayerStatus>();          
     }
 
-    public void ItemPickup(Item.ItemName itemName)
+    public void ItemPickup(Item item)
     {
-        switch(itemName)
+        switch(item.itemName)
         {
             case Item.ItemName.Disarmer:
                 {
-                    playerStatus.ChangeWeapon(Weapon.WeaponName.Empty);
+                    playerStatus.ChangeWeapon(new Weapon(Weapon.WeaponName.Empty));
+                    item.DestroyItem();
                     break;
                 }
             case Item.ItemName.Deagle:
                 {
-                    playerStatus.ChangeWeapon(Weapon.WeaponName.Deagle);
+                    playerStatus.ChangeWeapon(new Weapon(Weapon.WeaponName.Deagle));
+                    item.DestroyItem();
                     break;
                 }
             case Item.ItemName.Glock:
                 {
-                    playerStatus.ChangeWeapon(Weapon.WeaponName.Glock);
+                    playerStatus.ChangeWeapon(new Weapon(Weapon.WeaponName.Glock));
+                    item.DestroyItem();
                     break;
                 }
             case Item.ItemName.Uzi:
                 {
-                    playerStatus.ChangeWeapon(Weapon.WeaponName.Uzi);
+                    playerStatus.ChangeWeapon(new Weapon(Weapon.WeaponName.Uzi));
+                    item.DestroyItem();
                     break;
                 }
         }

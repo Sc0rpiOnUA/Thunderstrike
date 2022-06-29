@@ -9,34 +9,29 @@ public class PlayerController : MonoBehaviour
 {
     public float playerSpeed;
     public bool isMoving;
+    public bool isShooting;
 
     public Animator playerAnimator;
 
     private Rigidbody playerRigidbody;
     private PlayerInput playerInput;
     private PlayerInputActions playerInputActions;
+    private PlayerStatus playerStatus;
 
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
+        playerStatus = GetComponent<PlayerStatus>();
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Movement.performed += Movement_performed;
         playerInputActions.Player.Movement.canceled += Movement_canceled;
+        playerInputActions.Player.Shooting.performed += Shot_performed;
+        playerInputActions.Player.Shooting.canceled += Shot_canceled;
     }
-
-    private void Start()
-    {
-
-    }
-
-    private void Movement_canceled(InputAction.CallbackContext obj)
-    {
-        isMoving = false;
-    }
-
+    
     private void FixedUpdate()
     {       
         if(isMoving)
@@ -52,6 +47,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerAnimator.SetFloat("State", 0, 0.1f, Time.fixedDeltaTime);
+        }
+
+        if(isShooting)
+        {
+            playerStatus.FireShot();
         }
     }
 
@@ -78,5 +78,20 @@ public class PlayerController : MonoBehaviour
     private void Movement_performed(InputAction.CallbackContext context)
     {
         isMoving = true;
+    }
+
+    private void Movement_canceled(InputAction.CallbackContext obj)
+    {
+        isMoving = false;
+    }
+
+    private void Shot_performed(InputAction.CallbackContext obj)
+    {
+        isShooting = true;        
+    }
+
+    private void Shot_canceled(InputAction.CallbackContext obj)
+    {
+        isShooting = false;
     }
 }

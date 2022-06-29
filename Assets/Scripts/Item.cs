@@ -6,12 +6,15 @@ public class Item : MonoBehaviour
 {
     public GameObject gameManagerObject;
     public GameManager gameManager;
+    public Item item;
     public enum ItemName { Deagle, Glock, Uzi, Healthkit, Disarmer};
-    public ItemName item;
+    public ItemName itemName;
     public Collider itemCollider;
 
     private void Start()
     {
+        item = gameObject.GetComponent<Item>();
+
         gameManagerObject = GameObject.FindWithTag("GameManager");
         gameManager = gameManagerObject.GetComponent<GameManager>();
         itemCollider = GetComponent<Collider>();
@@ -24,12 +27,13 @@ public class Item : MonoBehaviour
 
         if (otherColliderTag == "Player")
         {
+            Debug.Log("Item collided with a player!");
             gameManager.ItemPickup(item);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void DestroyItem()
     {
-        
+        Destroy(gameObject);
     }
 }

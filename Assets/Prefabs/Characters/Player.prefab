@@ -216,7 +216,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   speed: 0
+  onCooldown: 0
+  bullets:
+  - {fileID: 7444016656874348320, guid: 0aa7aa45616642443b8a19343e36dc13, type: 3}
+  - {fileID: 4648705202716127956, guid: ade0281844450c24db61e5acfdf11576, type: 3}
+  - {fileID: 3371611875353253491, guid: 880aea1a73dd7534787b9ad665917c1a, type: 3}
   playerController: {fileID: 0}
+  playerInventory: {fileID: 0}
+  weaponHolder: {fileID: 2106289148831041435}
+  weaponGameObject: {fileID: 0}
+  weaponName: 0
+  weaponType: 0
+  weaponDamage: 0
+  weaponFirerate: 0
 --- !u!114 &8823912905184365947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 0
   isMoving: 0
+  isShooting: 0
   playerAnimator: {fileID: 5499351973826710457}
 --- !u!114 &5107601752943510453
 MonoBehaviour:
@@ -247,7 +260,7 @@ MonoBehaviour:
   weaponHolderRight: {fileID: 2106289148831041435}
   weaponPrefabs:
   - {fileID: 1148630019375297248, guid: cd031cb207982f44994285ca18f152cc, type: 3}
-  - {fileID: 2981932862710488177, guid: 14c005c75f8f79f4583fb6f535345d93, type: 3}
+  - {fileID: 7759447160599408640, guid: 48ae686062df79346b7cce636b8db274, type: 3}
   - {fileID: 787574379469653570, guid: 0c46fde2f6f02764c90423a3ec3133bc, type: 3}
 --- !u!54 &115146234017083275
 Rigidbody:
@@ -504,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106289148831041434}
   - component: {fileID: 2106289148831041437}
+  - component: {fileID: 269347957639423700}
   m_Layer: 0
   m_Name: WeaponHolderRight
   m_TagString: Untagged
@@ -545,6 +559,22 @@ LookAtConstraint:
   m_Sources:
   - sourceTransform: {fileID: 2106289148438596054}
     weight: 1
+--- !u!114 &269347957639423700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106289148831041435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc219dcbba90e84b86e2ecf840e0266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: -3795152337350425143, guid: 0000000000000000d000000000000000, type: 0}
+  position: -2
+  direction: 1
+  tooltip: 
 --- !u!1 &2214980395651276265
 GameObject:
   m_ObjectHideFlags: 0

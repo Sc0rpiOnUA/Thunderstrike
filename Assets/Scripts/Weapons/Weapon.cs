@@ -11,9 +11,11 @@ public class Weapon
 
     public float defaultDamage;
     public float defaultFirerate;
+    public float defaultBulletSpeed;
 
     public float damage;
     public float firerate;
+    public float bulletSpeed;
 
     public Weapon()
     {
@@ -37,8 +39,7 @@ public class Weapon
 
                     defaultDamage = 0;
                     defaultFirerate = 0;
-                    damage = defaultDamage;
-                    firerate = defaultFirerate;
+                    defaultBulletSpeed = 0;                    
                     break;
                 }
             case WeaponName.Deagle:
@@ -47,8 +48,7 @@ public class Weapon
 
                     defaultDamage = 10;
                     defaultFirerate = 1;
-                    damage = defaultDamage;
-                    firerate = defaultFirerate;
+                    defaultBulletSpeed = 20;
                     break;
                 }
             case WeaponName.Glock:
@@ -57,8 +57,7 @@ public class Weapon
 
                     defaultDamage = 5;
                     defaultFirerate = 2;
-                    damage = defaultDamage;
-                    firerate = defaultFirerate;
+                    defaultBulletSpeed = 15;
                     break;
                 }
             case WeaponName.Uzi:
@@ -67,12 +66,15 @@ public class Weapon
 
                     defaultDamage = 1;
                     defaultFirerate = 10;
-                    damage = defaultDamage;
-                    firerate = defaultFirerate;
+                    defaultBulletSpeed = 10;
                     break;
                 }
 
         }
+
+        damage = defaultDamage;
+        firerate = defaultFirerate;
+        bulletSpeed = defaultBulletSpeed;
     }
 }
 
