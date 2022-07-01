@@ -14,20 +14,29 @@ public class AlienStatus : MonoBehaviour
     public bool onCooldown;
 
     public GameObject blasterObject;
+    public HealthBar healthBar;
+    public AlienController alienController;
+    public Collider alienCollider;
+
+    private bool isDying;
+
+    private void Awake()
+    {
+        alienController = GetComponent<AlienController>();
+        alienCollider = GetComponent<Collider>();
+    }
 
     private void Start()
     {
+        isDying = false;
         health = maxHealth;
-    }
-
-    private void Update()
-    {
-        
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(health);
     }
 
     public void FireShot()
     {
-        if (!onCooldown)
+        if (!onCooldown && !isDying)
         {
             float cooldownTime;
             cooldownTime = 1 / firerate;
@@ -43,9 +52,10 @@ public class AlienStatus : MonoBehaviour
     public void TakeDamage(int damage)
     {        
         health -= damage;
+        healthBar.SetHealth(health);
         Debug.Log($"Alien {gameObject} is hit! Taking {damage} damage! {gameObject} health = {health}");
 
-        if (health <= 0)
+        if (health <= 0 && !isDying)
         {
             Die();
         }
@@ -54,7 +64,12 @@ public class AlienStatus : MonoBehaviour
     public void Die()
     {
         Debug.Log($"Alien {gameObject} died!");
-        Destroy(gameObject);
+        isDying = true;
+
+        Destroy(healthBar.gameObject);
+        alienCollider.enabled = false;
+        alienController.Die();
+        //Destroy(gameObject);
     }
 
     private IEnumerator ShotCooldown(float cooldown)

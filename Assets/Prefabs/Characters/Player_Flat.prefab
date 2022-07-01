@@ -1682,12 +1682,9 @@ MonoBehaviour:
   playerController: {fileID: 0}
   playerInventory: {fileID: 0}
   weaponHolder: {fileID: 4114298769777963511}
+  healthBarObject: {fileID: 0}
+  healthBar: {fileID: 0}
   weaponGameObject: {fileID: 0}
-  weaponName: 0
-  weaponType: 0
-  weaponDamage: 0
-  weaponFirerate: 0
-  weaponBulletSpeed: 0
 --- !u!114 &149718730547037901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1703,7 +1700,9 @@ MonoBehaviour:
   playerSpeed: 0
   isMoving: 0
   isShooting: 0
+  isDying: 0
   playerAnimator: {fileID: 3762371657173139471}
+  movementSystem: 1
 --- !u!114 &4505542286416349187
 MonoBehaviour:
   m_ObjectHideFlags: 0

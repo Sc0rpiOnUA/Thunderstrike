@@ -12,6 +12,8 @@ TagManager:
   - Chest
   - Item
   - Enemy
+  - PlayerHealthBar
+  - EnemyHealthBar
   layers:
   - Default
   - TransparentFX

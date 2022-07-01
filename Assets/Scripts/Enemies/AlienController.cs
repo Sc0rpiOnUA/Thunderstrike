@@ -12,7 +12,7 @@ public class AlienController : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    private bool isMoving;
+    private bool isMoving, isDying;
 
     //Patroling
     public Vector3 walkPoint;
@@ -25,6 +25,8 @@ public class AlienController : MonoBehaviour
 
     private void Awake()
     {
+        isDying = false;
+
         agent = GetComponent<NavMeshAgent>();
         alienStatus = GetComponent<AlienStatus>();
         alienAnimator = GetComponent<Animator>();
@@ -32,29 +34,32 @@ public class AlienController : MonoBehaviour
 
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        if (!isDying)
+        {
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if(!playerInSightRange && !playerInAttackRange)
-        {
-            Patroling();
-        }
-        if (playerInSightRange && !playerInAttackRange)
-        {
-            ChasePlayer();
-        }
-        if (playerInSightRange && playerInAttackRange)
-        {
-            AttackPlayer();
-        }
+            if (!playerInSightRange && !playerInAttackRange)
+            {
+                Patroling();
+            }
+            if (playerInSightRange && !playerInAttackRange)
+            {
+                ChasePlayer();
+            }
+            if (playerInSightRange && playerInAttackRange)
+            {
+                AttackPlayer();
+            }
 
-        if(isMoving)
-        {
-            alienAnimator.SetFloat("State", 1, 0.1f, Time.fixedDeltaTime);
-        }
-        else
-        {
-            alienAnimator.SetFloat("State", 0, 0.1f, Time.fixedDeltaTime);
+            if (isMoving)
+            {
+                alienAnimator.SetFloat("State", 1, 0.1f, Time.fixedDeltaTime);
+            }
+            else
+            {
+                alienAnimator.SetFloat("State", 0, 0.1f, Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -62,6 +67,14 @@ public class AlienController : MonoBehaviour
     {
         player = playerObject.transform;
     }
+    public void Die()
+    {
+        isDying = true;
+        agent.enabled = false;
+        alienAnimator.SetTrigger("Death");
+        alienAnimator.SetInteger("DeathVariant", Random.Range(1, 5));
+    }
+
 
     private void Patroling()
     {
@@ -113,6 +126,8 @@ public class AlienController : MonoBehaviour
 
         Debug.Log("ATTACKING PLAYER!!!");
     }
+
+    
 
     private void OnDrawGizmosSelected()
     {

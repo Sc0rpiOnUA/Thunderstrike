@@ -8,8 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float playerSpeed;
-    public bool isMoving;
-    public bool isShooting;
+    public bool isMoving, isShooting, isDying;
 
     public Animator playerAnimator;
 
@@ -17,9 +16,17 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerInputActions playerInputActions;
     private PlayerStatus playerStatus;
+    private Camera mainCamera;
+    private Plane infinitePlane = new Plane(Vector3.up, 0);
+
+    private enum MovementSystem { Rigid, Fluid}
+    [SerializeField] MovementSystem movementSystem;
 
     private void Awake()
     {
+        isDying = false;
+        mainCamera = Camera.main;
+
         playerRigidbody = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         playerStatus = GetComponent<PlayerStatus>();
@@ -33,26 +40,68 @@ public class PlayerController : MonoBehaviour
     }
     
     private void FixedUpdate()
-    {       
-        if(isMoving)
+    {
+        if (!isDying)
         {
-            playerAnimator.SetFloat("State", 1, 0.1f, Time.fixedDeltaTime);
             Vector2 movementVector2 = playerInputActions.Player.Movement.ReadValue<Vector2>();
             Vector3 movementVector3 = new Vector3(movementVector2.x, 0, movementVector2.y);
-            Quaternion playerRotation = Quaternion.LookRotation(movementVector3, Vector3.up);
 
-            playerRigidbody.MovePosition(playerRigidbody.position + movementVector3 * playerSpeed * Time.fixedDeltaTime);
-            playerRigidbody.rotation = playerRotation;
-        } 
+            if (movementSystem == MovementSystem.Fluid)
+            {
+                float velocityX = Vector3.Dot(movementVector3, transform.forward) * 1.41f;
+                float velocityZ = Vector3.Dot(movementVector3, transform.right) * 1.41f;
+
+                playerAnimator.SetFloat("VelocityX", velocityX, 0.1f, Time.fixedDeltaTime);
+                playerAnimator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.fixedDeltaTime);
+
+                playerRigidbody.MovePosition(playerRigidbody.position + movementVector3.normalized * playerSpeed * Time.fixedDeltaTime);
+                HandleRotation();
+            }
+            else if(movementSystem == MovementSystem.Rigid)
+            {
+                if (isMoving)
+                {
+                    Quaternion playerRotation = Quaternion.LookRotation(movementVector3, Vector3.up);
+
+                    playerAnimator.SetFloat("VelocityX", 1, 0.1f, Time.fixedDeltaTime);
+                    playerAnimator.SetFloat("VelocityZ", 0, 0.1f, Time.fixedDeltaTime);
+                    playerRigidbody.MovePosition(playerRigidbody.position + movementVector3 * playerSpeed * Time.fixedDeltaTime);
+                    playerRigidbody.rotation = playerRotation;
+                }
+                else
+                {
+                    playerAnimator.SetFloat("VelocityX", 0, 0.1f, Time.fixedDeltaTime);
+                }
+            }   
+
+            if (isShooting)
+            {
+                playerStatus.FireShot();
+            }
+        }
+    }
+
+    void HandleRotation()
+    {
+        float distance;
+        Vector2 mouseScreenPositon = Mouse.current.position.ReadValue();
+        Vector3 mouseWorldPosition = new Vector3();
+        Ray ray = mainCamera.ScreenPointToRay(mouseScreenPositon);
+        RaycastHit hitData;
+
+        if (Physics.Raycast(ray, out hitData, 1000))
+        {
+            mouseWorldPosition = hitData.point;
+        }
         else
         {
-            playerAnimator.SetFloat("State", 0, 0.1f, Time.fixedDeltaTime);
+            infinitePlane.Raycast(ray, out distance);
+            mouseWorldPosition = ray.GetPoint(distance);
         }
 
-        if(isShooting)
-        {
-            playerStatus.FireShot();
-        }
+        Vector3 targetDirection = mouseWorldPosition - transform.position;
+        float angle = Mathf.Atan2(-targetDirection.z, targetDirection.x) * Mathf.Rad2Deg + 90;
+        transform.rotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
     }
 
     public void ChangeWeaponType(Weapon.WeaponType newWeaponType)
@@ -73,6 +122,13 @@ public class PlayerController : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    public void Die()
+    {
+        isDying = true;
+        playerAnimator.SetTrigger("Death");
+        playerAnimator.SetInteger("DeathVariant", UnityEngine.Random.Range(1, 5));
     }
 
     private void Movement_performed(InputAction.CallbackContext context)
