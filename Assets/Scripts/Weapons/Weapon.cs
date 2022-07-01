@@ -9,25 +9,25 @@ public class Weapon
     public enum WeaponType { Empty, Pistol}
     public WeaponType weaponType;
 
-    public float defaultDamage;
+    public int defaultDamage;
     public float defaultFirerate;
     public float defaultBulletSpeed;
 
-    public float damage;
+    public int damage;
     public float firerate;
     public float bulletSpeed;
 
     public Weapon()
     {
-        setWeapon(WeaponName.Empty);
+        SetWeapon(WeaponName.Empty);
     }
 
     public Weapon(WeaponName newWeaponName)
     {
-        setWeapon(newWeaponName);
+        SetWeapon(newWeaponName);
     }
 
-    public void setWeapon(WeaponName newWeaponName)
+    public void SetWeapon(WeaponName newWeaponName)
     {
         weaponName = newWeaponName;
 
@@ -46,27 +46,27 @@ public class Weapon
                 {
                     weaponType = WeaponType.Pistol;
 
-                    defaultDamage = 10;
+                    defaultDamage = 20;
                     defaultFirerate = 1;
-                    defaultBulletSpeed = 20;
+                    defaultBulletSpeed = 30;
                     break;
                 }
             case WeaponName.Glock:
                 {
                     weaponType = WeaponType.Pistol;
 
-                    defaultDamage = 5;
+                    defaultDamage = 10;
                     defaultFirerate = 2;
-                    defaultBulletSpeed = 15;
+                    defaultBulletSpeed = 25;
                     break;
                 }
             case WeaponName.Uzi:
                 {
                     weaponType = WeaponType.Pistol;
 
-                    defaultDamage = 1;
+                    defaultDamage = 2;
                     defaultFirerate = 10;
-                    defaultBulletSpeed = 10;
+                    defaultBulletSpeed = 20;
                     break;
                 }
 

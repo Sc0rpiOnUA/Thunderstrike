@@ -8,6 +8,10 @@ TagManager:
   - BulletSpawner
   - Weapon
   - BulletContainer
+  - Environment
+  - Chest
+  - Item
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - WhatIsGround
+  - WhatIsPlayer
+  - Obstacles
   - 
   - 
   - 

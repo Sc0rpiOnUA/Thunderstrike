@@ -5,12 +5,23 @@ using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
+    public int healthkitSmallHealth;
+
     public GameObject playerPrefab;
     public GameObject playerSpawner;
+    public GameObject playerGameObject;
+    public PlayerStatus playerStatus;
+
+    public GameObject enemyContainer;
+    public GameObject alienPrefab;
+    public GameObject alienSpawner;
+    public GameObject alienGameObject;
+    public AlienStatus alienStatus;
+    public AlienController alienController;
+
     public CinemachineVirtualCamera virtualCamera;
 
-    public GameObject playerGameObject;
-    public PlayerStatus playerStatus;    
+    
 
     private void Start()
     {
@@ -19,11 +30,16 @@ public class GameManager : MonoBehaviour
 
     private void StartTheGame()
     {
-        playerGameObject = Instantiate(playerPrefab, playerSpawner.transform.position, playerSpawner.transform.rotation);
+        playerGameObject = Instantiate(playerPrefab, playerSpawner.transform.position, playerSpawner.transform.rotation);       
+        playerStatus = playerGameObject.GetComponent<PlayerStatus>();
         virtualCamera.Follow = playerGameObject.transform;
         virtualCamera.LookAt = playerGameObject.transform;
 
-        playerStatus = playerGameObject.GetComponent<PlayerStatus>();          
+        alienGameObject = Instantiate(alienPrefab, alienSpawner.transform.position, alienSpawner.transform.rotation, enemyContainer.transform);
+        alienStatus = alienGameObject.GetComponent<AlienStatus>();
+        alienController = alienGameObject.GetComponent<AlienController>();
+        alienController.SetPlayer(playerGameObject);
+
     }
 
     public void ItemPickup(Item item)
@@ -51,6 +67,12 @@ public class GameManager : MonoBehaviour
             case Item.ItemName.Uzi:
                 {
                     playerStatus.ChangeWeapon(new Weapon(Weapon.WeaponName.Uzi));
+                    item.DestroyItem();
+                    break;
+                }
+            case Item.ItemName.Healthkit:
+                {
+                    playerStatus.IncreaseHealth(healthkitSmallHealth);
                     item.DestroyItem();
                     break;
                 }
