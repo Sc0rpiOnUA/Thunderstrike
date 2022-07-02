@@ -48,15 +48,15 @@ public class Weapon
 
                     defaultDamage = 20;
                     defaultFirerate = 1;
-                    defaultBulletSpeed = 30;
+                    defaultBulletSpeed = 20;
                     break;
                 }
             case WeaponName.Glock:
                 {
                     weaponType = WeaponType.Pistol;
 
-                    defaultDamage = 10;
-                    defaultFirerate = 2;
+                    defaultDamage = 5;
+                    defaultFirerate = 4;
                     defaultBulletSpeed = 25;
                     break;
                 }
@@ -66,7 +66,7 @@ public class Weapon
 
                     defaultDamage = 2;
                     defaultFirerate = 10;
-                    defaultBulletSpeed = 20;
+                    defaultBulletSpeed = 30;
                     break;
                 }
 

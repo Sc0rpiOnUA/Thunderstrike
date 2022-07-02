@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8901297086000624287}
-  - component: {fileID: 7680722411518001224}
+  - component: {fileID: 1773406429502473834}
   m_Layer: 8
   m_Name: CapsuleBig
   m_TagString: Environment
@@ -33,25 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7680722411518001224
-MonoBehaviour:
+--- !u!64 &1773406429502473834
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3033728678404618996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e195123a727c4849905e331ffeec993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeType: 0
-  customFade: 0
-  fadeTo: 0
-  otherObjects: []
-  checkParentObject: 0
-  isPlayerFound: 0
-  faded: 0
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8420497909158839650, guid: 498d732024a75fa4bb84ee2858fefd9d, type: 3}
 --- !u!1001 &8307657388091932959
 PrefabInstance:
   m_ObjectHideFlags: 0
