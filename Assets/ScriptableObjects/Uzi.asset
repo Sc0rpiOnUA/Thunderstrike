@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Uzi
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 064f01570dd07f244b0aeb576b6703e9, type: 3}
+  weapon: 3
   weaponName: Uzi
   weaponDamage: 2
   weaponFirerate: 10

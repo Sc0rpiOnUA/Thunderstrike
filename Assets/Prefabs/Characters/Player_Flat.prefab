@@ -799,7 +799,7 @@ GameObject:
   m_Layer: 7
   m_Name: WeaponHolderRight
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 2353639488050320165}
   - component: {fileID: 149718730547037901}
   - component: {fileID: 4505542286416349187}
+  - component: {fileID: 6527704795276410312}
   - component: {fileID: 8790510315869217853}
   - component: {fileID: 7341075812348466517}
   - component: {fileID: 3762371657173139471}
@@ -1681,7 +1682,7 @@ MonoBehaviour:
   onCooldown: 0
   playerController: {fileID: 0}
   playerInventory: {fileID: 0}
-  weaponHolder: {fileID: 4114298769777963511}
+  weaponHolderRight: {fileID: 4114298769777963511}
   healthBarObject: {fileID: 0}
   healthBar: {fileID: 0}
   weaponGameObject: {fileID: 0}
@@ -1698,6 +1699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 0
+  canMove: 0
   isMoving: 0
   isShooting: 0
   isDying: 0
@@ -1721,6 +1723,18 @@ MonoBehaviour:
   - {fileID: 7759447160599408640, guid: 48ae686062df79346b7cce636b8db274, type: 3}
   - {fileID: 2981932862710488177, guid: 14c005c75f8f79f4583fb6f535345d93, type: 3}
   - {fileID: 787574379469653570, guid: 0c46fde2f6f02764c90423a3ec3133bc, type: 3}
+--- !u!114 &6527704795276410312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7610341674585161935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846db91fd72f1b5439081a34e7420381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &8790510315869217853
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1805,6 +1819,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 08b6850e-f958-466e-a0a0-96fcaf336f7d
     m_ActionName: Player/Shooting[/Keyboard/space,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 082ed71a-4197-4cbd-b6f0-ebe186b162ac
+    m_ActionName: Player/Interacting[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

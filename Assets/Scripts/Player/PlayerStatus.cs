@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -9,14 +10,17 @@ public class PlayerStatus : MonoBehaviour
     public int speed;
 
     public bool onCooldown;
+    public bool friendlyFire;
 
     public Weapon weapon;
     public PlayerController playerController;
     public PlayerInventory playerInventory;
-    public GameObject weaponHolder;
+    public GameObject weaponHolderRight;
     public GameObject healthBarObject;
     public HealthBar healthBar;
 
+    private GameObject gameManagerObject;
+    private GameManager gameManager;
     [SerializeField] private GameObject weaponGameObject;
 
     //[SerializeField] private Weapon.WeaponName weaponName;
@@ -25,12 +29,16 @@ public class PlayerStatus : MonoBehaviour
     //[SerializeField] private float weaponFirerate;
     //[SerializeField] private float weaponBulletSpeed;
 
-    private bool isDying;
+    private bool canMove, isDying, chestInRange;
     private Collider playerCollider;
 
     private void Awake()
     {
+        canMove = true;
+        chestInRange = false;
         playerCollider = GetComponent<Collider>();
+        gameManagerObject = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager = gameManagerObject.GetComponent<GameManager>();
     }
 
     private void Start()
@@ -64,9 +72,20 @@ public class PlayerStatus : MonoBehaviour
         //weaponBulletSpeed = weapon.bulletSpeed;
     }
 
+    public void StopMovement()
+    {
+        canMove = false;
+        playerController.StopMovement();
+    }
+    public void ResumeMovement()
+    {
+        canMove = true;
+        playerController.ResumeMovement();
+    }
+
     public void FireShot()
     {
-        if(weapon.weaponType != Weapon.WeaponType.Empty && !onCooldown && !isDying)
+        if(weapon.weaponType != Weapon.WeaponType.Empty && !onCooldown && !isDying && canMove)
         {
             float cooldownTime;
             cooldownTime = 1 / weapon.firerate;
@@ -75,18 +94,42 @@ public class PlayerStatus : MonoBehaviour
             BulletSpawner bulletSpawner = weaponGameObject.GetComponent<BulletSpawner>();
 
             Debug.Log("Boom!");
-            bulletSpawner.SpawnBullet(weapon.bulletSpeed, weapon.damage);
+            bulletSpawner.SpawnBullet(weapon.bulletSpeed, weapon.damage, friendlyFire);
+        }
+    }
+
+    public void SetChestInRange(bool isInRange)
+    {
+        chestInRange = isInRange;
+        if(chestInRange)
+        {
+            gameManager.ChestInRange();
+        }
+        else
+        {
+            gameManager.ChestNotInRange();
+        }
+    }
+
+    public void InteractionPerformed()
+    {
+        if(!isDying && canMove && chestInRange)
+        {
+            gameManager.InteractAttempt();
         }
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        healthBar.SetHealth(health);
-
-        if (health <= 0 && !isDying)
+        if(canMove)
         {
-            Die();
+            health -= damage;
+            healthBar.SetHealth(health);
+
+            if (health <= 0 && !isDying)
+            {
+                Die();
+            }
         }
     }
 
@@ -110,10 +153,12 @@ public class PlayerStatus : MonoBehaviour
     {
         Debug.Log("Player died!");
         isDying = true;
+        weaponHolderRight.GetComponent<LookAtConstraint>().enabled = false;
 
         Destroy(healthBar.gameObject);
         playerCollider.enabled = false;
         playerController.Die();
+        gameManager.Die();
     }
 
     public void ChangeWeapon(Weapon newWeapon)

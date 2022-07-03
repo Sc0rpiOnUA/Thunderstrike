@@ -380,6 +380,7 @@ MonoBehaviour:
   bulletSpeed: 20
   firerate: 1
   onCooldown: 0
+  weaponHolderRight: {fileID: 4005357564130855780}
   blasterObject: {fileID: 3672614671861664056}
   healthBar: {fileID: 8634107242446000139}
   alienController: {fileID: 0}

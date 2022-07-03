@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float playerSpeed;
-    public bool isMoving, isShooting, isDying;
+    public bool canMove, isMoving, isShooting, isDying;
 
     public Animator playerAnimator;
 
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        canMove = true;
         isDying = false;
         mainCamera = Camera.main;
 
@@ -37,11 +38,13 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Movement.canceled += Movement_canceled;
         playerInputActions.Player.Shooting.performed += Shot_performed;
         playerInputActions.Player.Shooting.canceled += Shot_canceled;
-    }
-    
+        playerInputActions.Player.Interacting.performed += Interaction_performed;
+        playerInputActions.Player.Escape.performed += Escape_performed;
+    }    
+
     private void FixedUpdate()
     {
-        if (!isDying)
+        if (!isDying && canMove)
         {
             Vector2 movementVector2 = playerInputActions.Player.Movement.ReadValue<Vector2>();
             Vector3 movementVector3 = new Vector3(movementVector2.x, 0, movementVector2.y);
@@ -79,6 +82,16 @@ public class PlayerController : MonoBehaviour
                 playerStatus.FireShot();
             }
         }
+    }
+
+    public void StopMovement()
+    {
+        canMove = false;
+    }
+
+    public void ResumeMovement()
+    {
+        canMove = true;
     }
 
     void HandleRotation()
@@ -149,5 +162,16 @@ public class PlayerController : MonoBehaviour
     private void Shot_canceled(InputAction.CallbackContext obj)
     {
         isShooting = false;
+    }
+
+    private void Interaction_performed(InputAction.CallbackContext obj)
+    {
+        playerStatus.InteractionPerformed();
+    }
+
+    private void Escape_performed(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Quit!");
+        Application.Quit();
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Deagle
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 9645cf8f274af1f46954840509af972a, type: 3}
+  weapon: 1
   weaponName: Deagle
   weaponDamage: 20
   weaponFirerate: 1
