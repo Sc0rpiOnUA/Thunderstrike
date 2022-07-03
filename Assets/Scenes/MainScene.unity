@@ -1961,11 +1961,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthkitSmallHealth: 20
-  healthkitChancePercentage: 10
+  healthkitChancePercentage: 20
   enemiesToSpawn: 1
   enemiesAlive: 0
   stageNumber: 0
   friendlyFire: 0
+  cursor: {fileID: 2800000, guid: 900057a389b846b4cb9978ecd386dce3, type: 3}
   enemiesAliveContainer: {fileID: 613285682}
   enemiesAliveText: {fileID: 937156876}
   stageNumberText: {fileID: 1382858804}
@@ -1988,13 +1989,14 @@ MonoBehaviour:
   music:
   - {fileID: 8300000, guid: e6073dae8de48d44892bd7763b7791fe, type: 3}
   - {fileID: 8300000, guid: ae217148e68bea240926c987b62b4d49, type: 3}
-  - {fileID: 8300000, guid: d373d4e4a337d6b429783b07e6b12b11, type: 3}
   - {fileID: 8300000, guid: 318e33c4618b07843bcbb5967753e17f, type: 3}
   - {fileID: 8300000, guid: 6d349fbd088b33f4cb02177c6911cef2, type: 3}
   - {fileID: 8300000, guid: 3da22441dd429e841bf5aa3d485e32b7, type: 3}
   - {fileID: 8300000, guid: c45d497c5f61c5648898d1b3cf3f1c73, type: 3}
   cardCanvas: {fileID: 1526278641}
   weaponCardTemplate: {fileID: 1638386307794723207, guid: 1598d1b487f7d59439f4735a85693e3b,
+    type: 3}
+  buffCardTemplate: {fileID: 7023361222628767717, guid: 3b3585e7881c5374990ee23174d9abf3,
     type: 3}
   gameState: 0
   chest: {fileID: 164355756}

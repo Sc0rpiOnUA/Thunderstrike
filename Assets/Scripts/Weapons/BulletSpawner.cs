@@ -12,7 +12,7 @@ public class BulletSpawner : MonoBehaviour
     {
         bulletContainer = GameObject.FindGameObjectWithTag("BulletContainer");
     }
-    public void SpawnBullet(float bulletSpeed, int bulletDamage, bool friendlyFire)
+    public void SpawnBullet(float bulletSpeed, float bulletDamage, bool friendlyFire)
     {
         Debug.Log($"Bullet instantiated! Type of bullet: {bulletPrefab}");
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnerObject.transform.position, bulletSpawnerObject.transform.rotation, bulletContainer.transform);

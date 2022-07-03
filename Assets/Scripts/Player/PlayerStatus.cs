@@ -7,7 +7,7 @@ public class PlayerStatus : MonoBehaviour
 {
     public int maxHealth;
     public int health;
-    public int speed;
+    public float speed;
 
     public bool onCooldown;
     public bool friendlyFire;
@@ -23,11 +23,11 @@ public class PlayerStatus : MonoBehaviour
     private GameManager gameManager;
     [SerializeField] private GameObject weaponGameObject;
 
-    //[SerializeField] private Weapon.WeaponName weaponName;
-    //[SerializeField] private Weapon.WeaponType weaponType;
-    //[SerializeField] private float weaponDamage;
-    //[SerializeField] private float weaponFirerate;
-    //[SerializeField] private float weaponBulletSpeed;
+    [SerializeField] private Weapon.WeaponName weaponName;
+    [SerializeField] private Weapon.WeaponType weaponType;
+    [SerializeField] private float weaponDamage;
+    [SerializeField] private float weaponFirerate;
+    [SerializeField] private float weaponBulletSpeed;
 
     private bool canMove, isDying, chestInRange;
     private Collider playerCollider;
@@ -65,11 +65,11 @@ public class PlayerStatus : MonoBehaviour
             playerController.playerSpeed = speed;
         }
 
-        //weaponName = weapon.weaponName;
-        //weaponType = weapon.weaponType;
-        //weaponDamage = weapon.damage;
-        //weaponFirerate = weapon.firerate;
-        //weaponBulletSpeed = weapon.bulletSpeed;
+        weaponName = weapon.weaponName;
+        weaponType = weapon.weaponType;
+        weaponDamage = weapon.damage;
+        weaponFirerate = weapon.firerate;
+        weaponBulletSpeed = weapon.bulletSpeed;
     }
 
     public void StopMovement()
@@ -119,11 +119,11 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if(canMove)
         {
-            health -= damage;
+            health -= (int)damage;
             healthBar.SetHealth(health);
 
             if (health <= 0 && !isDying)
@@ -168,6 +168,48 @@ public class PlayerStatus : MonoBehaviour
         weapon.SetWeapon(newWeapon.weaponName);
         playerController.ChangeWeaponType(newWeapon.weaponType);
         weaponGameObject = playerInventory.switchWeaponRightHand(newWeapon.weaponName);
+    }
+
+    public void IncreaseDamage(int percentage)
+    {
+        Debug.Log($"Increasing damage by {percentage}%");
+        weapon.damage *= (1 + ((float)percentage / 100));
+        Debug.Log($"Weapon damage = {weapon.damage}");
+    }
+
+    public void IncreaseFirerate(int percentage)
+    {
+        Debug.Log($"Increasing firerate by {percentage}%");
+        weapon.firerate *= (1 + ((float)percentage / 100));
+        Debug.Log($"Weapon firerate = {weapon.firerate}");
+    }
+
+    public void IncreaseBulletSpeed(int percentage)
+    {
+        Debug.Log($"Increasing bullet speed by {percentage}%");
+        weapon.bulletSpeed *= (1 + ((float)percentage / 100));
+        Debug.Log($"Weapon vullet speed = {weapon.bulletSpeed}");
+    }
+
+    public void IncreaseMaxHealth(int percentage)
+    {
+        Debug.Log($"Increasing max health by {percentage}%");
+        float newHealth = maxHealth * (1 + ((float)percentage / 100));
+        maxHealth = (int)newHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        Debug.Log($"New health = {newHealth}, maxHealth = {maxHealth}");
+    }
+
+    public void IncreaseMovementSpeed(int percentage)
+    {
+        Debug.Log($"Increasing movement speed by {percentage}%");
+        speed *= (1 + ((float)percentage / 100));
+        Debug.Log($"Weapon movement speed = {speed}");
+    }
+
+    public void EscapePressed()
+    {
+        gameManager.EscapePressed();
     }
 
     private IEnumerator ShotCooldown(float cooldown)

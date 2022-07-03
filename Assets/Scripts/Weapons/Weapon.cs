@@ -9,11 +9,11 @@ public class Weapon
     public enum WeaponType { Empty, Pistol}
     public WeaponType weaponType;
 
-    public int defaultDamage;
+    public float defaultDamage;
     public float defaultFirerate;
     public float defaultBulletSpeed;
 
-    public int damage;
+    public float damage;
     public float firerate;
     public float bulletSpeed;
 

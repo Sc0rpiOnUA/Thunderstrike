@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public bool friendlyFire;
-    private int damage;
+    private float damage;
     public AudioClip[] shotSounds;
     private AudioSource audioSource;
     private Collider selfCollider;
@@ -85,7 +85,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetDamage(int newDamage)
+    public void SetDamage(float newDamage)
     {
         damage = newDamage;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New Weapon Card", menuName = "Weapon Card")]
+[CreateAssetMenu(fileName = "New Weapon Card", menuName = "Card/Weapon Card")]
 public class WeaponCard : ScriptableObject
 {
     public Sprite icon;
@@ -19,7 +19,7 @@ public class WeaponCard : ScriptableObject
         Weapon weaponObject = new Weapon(weapon);
 
         weaponName = weaponObject.weaponName.ToString();
-        weaponDamage = weaponObject.defaultDamage;
+        weaponDamage = (int)weaponObject.defaultDamage;
         weaponFirerate = (int)weaponObject.defaultFirerate;
         weaponBulletSpeed = (int)weaponObject.defaultBulletSpeed;
     }

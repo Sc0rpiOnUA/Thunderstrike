@@ -58,9 +58,9 @@ public class AlienStatus : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {        
-        health -= damage;
+        health -= (int)damage;
         healthBar.SetHealth(health);
         Debug.Log($"Alien {gameObject} is hit! Taking {damage} damage! {gameObject} health = {health}");
 

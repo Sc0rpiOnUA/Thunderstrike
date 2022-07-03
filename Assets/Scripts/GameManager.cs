@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public int stageNumber;
     public bool friendlyFire;
 
-    [Header("Text UI")]
+    [Header("UI")]
+    public Texture2D cursor;
     public GameObject enemiesAliveContainer;
     public TextMeshProUGUI enemiesAliveText;
     public TextMeshProUGUI stageNumberText;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     public AudioClip[] music;    
     public Canvas cardCanvas;
     public GameObject weaponCardTemplate;
+    public GameObject buffCardTemplate;
 
     private AudioSource audioSource;
     private EnemySpawner spawner;
@@ -55,6 +57,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Vector2 cursorCenter = new Vector2(cursor.width / 2, cursor.height / 2);
+
+        Cursor.SetCursor(cursor, cursorCenter, CursorMode.Auto);
+
         spawner = alienSpawner.GetComponent<EnemySpawner>();
         audioSource = GetComponent<AudioSource>();
         isChestActive = true;
@@ -258,7 +264,7 @@ public class GameManager : MonoBehaviour
         }
         else 
         {
-            OpenWeaponsChest();
+            OpenBuffChest();
         }
         gameState = GameState.Selecting;
     }
@@ -271,6 +277,15 @@ public class GameManager : MonoBehaviour
         GenerateWeaponCard(Weapon.WeaponName.Uzi, CardInteractor.CardPosition.Right);
         DeactivateChest();
     }
+
+    public void OpenBuffChest()
+    {
+        playerStatus.StopMovement();
+        GenerateBuffCard(CardInteractor.CardPosition.Left);
+        GenerateBuffCard(CardInteractor.CardPosition.Middle);
+        GenerateBuffCard(CardInteractor.CardPosition.Right);
+        DeactivateChest();
+    }    
 
     public void GenerateWeaponCard(Weapon.WeaponName generatedWeaponName, CardInteractor.CardPosition cardPosition)
     {
@@ -287,6 +302,14 @@ public class GameManager : MonoBehaviour
         WeaponCardDisplay weaponCardDisplay = newCard.GetComponent<WeaponCardDisplay>();
 
         weaponCardDisplay.SetCard(weaponName, positionIndex);
+    }
+
+    public void GenerateBuffCard(CardInteractor.CardPosition cardPosition)
+    {
+        GameObject newCard = Instantiate(buffCardTemplate, cardCanvas.transform);
+        PowerupCardDisplay powerupCardDisplay = newCard.GetComponent<PowerupCardDisplay>();
+
+        powerupCardDisplay.SetCard(Random.Range(0, 7), cardPosition);
     }
 
     public void SelectCard(CardInteractor.CardType cardType, GameObject selectedCard)
@@ -320,6 +343,7 @@ public class GameManager : MonoBehaviour
         {
             alienStatus.PlayerDied();
         }
+        PlayerPrefs.SetInt("HighestStage", stageNumber);
 
         StartCoroutine(DeathCoroutine(5f));
     }
@@ -335,14 +359,68 @@ public class GameManager : MonoBehaviour
 
             playerStatus.ChangeWeapon(new Weapon(newWeaponName));
         }
+        else if(interactor.cardType == CardInteractor.CardType.Buff)
+        {
+            PowerupCardDisplay powerupCardDisplay = interactor.gameObject.GetComponent<PowerupCardDisplay>();
+            string buffName = powerupCardDisplay.cardName.text;
+            ReceiveBuff(buffName);
+        }
 
         Fight(3f, enemiesToSpawn);
+    }
+
+    public void ReceiveBuff(string buffName)
+    {
+        switch (buffName)
+        {
+            case "Bullet Speed +25%":
+                {
+                    playerStatus.IncreaseBulletSpeed(25);
+                    break;
+                }
+            case "Damage +25%":
+                {
+                    playerStatus.IncreaseDamage(25);
+                    break;
+                }
+            case "Fire Rate +25%":
+                {
+                    playerStatus.IncreaseFirerate(25);
+                    break;
+                }
+            case "Health Chance +5%":
+                {
+                    healthkitChancePercentage += 5;
+                    break;
+                }
+            case "Health Potency +25%":
+                {
+                    float hpIncrease = healthkitSmallHealth * 1.25f;
+                    healthkitSmallHealth = (int)hpIncrease;
+                    break;
+                }
+            case "Max Health +25%":
+                {
+                    playerStatus.IncreaseMaxHealth(25);
+                    break;
+                }
+            case "Movement Speed +20%":
+                {
+                    playerStatus.IncreaseMovementSpeed(25);
+                    break;
+                }
+        }
     }
 
     private void Fight(float delay, int enemies)
     {
         gameState = GameState.Preparing;
         StartCoroutine(FightCoroutine(delay, enemies));
+    }
+
+    public void EscapePressed()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private IEnumerator DeathCoroutine(float delay)

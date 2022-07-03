@@ -171,7 +171,6 @@ public class PlayerController : MonoBehaviour
 
     private void Escape_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Quit!");
-        Application.Quit();
+        playerStatus.EscapePressed();
     }
 }
