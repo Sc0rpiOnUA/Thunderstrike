@@ -343,9 +343,18 @@ public class GameManager : MonoBehaviour
         {
             alienStatus.PlayerDied();
         }
-        PlayerPrefs.SetInt("HighestStage", stageNumber);
+
+        RecordHighScore();
 
         StartCoroutine(DeathCoroutine(5f));
+    }
+
+    private void RecordHighScore()
+    {
+        if (!PlayerPrefs.HasKey("HighestStage") || PlayerPrefs.GetInt("HighestStage") < stageNumber)
+        {
+            PlayerPrefs.SetInt("HighestStage", stageNumber);
+        }
     }
 
     private void EquipCard(GameObject selectedCard)
