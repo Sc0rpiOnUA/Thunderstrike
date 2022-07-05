@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2251666337691435669}
   - component: {fileID: 8271525463459256817}
+  - component: {fileID: 1254342863092721792}
   m_Layer: 8
   m_Name: CapsuleSquare
   m_TagString: Environment
@@ -46,6 +47,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.75, y: 5, z: 3.75}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &1254342863092721792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772860059508140054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &4077625908509198368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bc131735580ed2945895ecbde935802f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bc131735580ed2945895ecbde935802f,
         type: 3}

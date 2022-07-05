@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6182662369184274105}
   - component: {fileID: 1844089655487205143}
   - component: {fileID: 3004267095361554691}
+  - component: {fileID: 6422300525996901565}
   m_Layer: 8
   m_Name: Chest
   m_TagString: Chest
@@ -60,6 +61,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestGraphics: {fileID: 5819130740702289291}
+--- !u!114 &6422300525996901565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227428759271709898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &6629541927984341210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3ae78f42d0576ab4385059d94423132f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ae78f42d0576ab4385059d94423132f,
         type: 3}

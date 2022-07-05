@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1659529290800047310}
   - component: {fileID: 3321908532027828619}
+  - component: {fileID: 4617108947418288591}
   m_Layer: 8
   m_Name: Thingy
   m_TagString: Environment
@@ -47,6 +48,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2617685159396292406, guid: d04fbe41b89c1114f93f2a19ab2422d4, type: 3}
+--- !u!114 &4617108947418288591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132104147595338976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &7013518743203788123
 PrefabInstance:
   m_ObjectHideFlags: 0
