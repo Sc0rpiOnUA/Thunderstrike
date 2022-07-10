@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: HealthpackChance
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  powerupName: Health Chance +5%
+  powerupName: Health Chance
+  powerupNumber: 5
+  powerupUnits: 1
+  powerupCap: 90
   powerupDescription: Increases the chance dead aliens will drop additional health
-    by 5%
+    by

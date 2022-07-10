@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed;
     public bool canMove, isMoving, isShooting, isDying;
 
+    public ForceMode forceMode;
+
     public Animator playerAnimator;
 
     private Rigidbody playerRigidbody;
@@ -57,7 +59,10 @@ public class PlayerController : MonoBehaviour
                 playerAnimator.SetFloat("VelocityX", velocityX, 0.1f, Time.fixedDeltaTime);
                 playerAnimator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.fixedDeltaTime);
 
+                //playerRigidbody.velocity = movementVector3.normalized * playerSpeed * Time.fixedDeltaTime;
+                //playerRigidbody.AddForce(movementVector3.normalized * playerSpeed * Time.fixedDeltaTime, forceMode);
                 playerRigidbody.MovePosition(playerRigidbody.position + movementVector3.normalized * playerSpeed * Time.fixedDeltaTime);
+
                 HandleRotation();
             }
             else if(movementSystem == MovementSystem.Rigid)

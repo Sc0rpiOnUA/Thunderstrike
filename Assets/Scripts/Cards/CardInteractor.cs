@@ -12,7 +12,7 @@ public class CardInteractor : MonoBehaviour
     public enum CardPosition { Left, Middle, Right}
     public CardPosition cardPosition;
 
-    public enum CardType { Weapon, Buff}
+    public enum CardType { Weapon, Powerup}
     public CardType cardType;
 
     private EventTrigger eventTrigger;

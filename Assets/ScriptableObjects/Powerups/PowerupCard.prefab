@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11194576, g: 0.23584908, b: 0.10991456, a: 1}
+  m_Color: {r: 0.10980393, g: 0.14150392, b: 0.23529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -191,9 +191,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e016fcdb33998bd47a23f660814d4019, type: 2}
   - {fileID: 11400000, guid: 67e28d11c46be724f99add342de3043f, type: 2}
   - {fileID: 11400000, guid: 9628507b4efe6a147b91f87724e9e29b, type: 2}
-  - {fileID: 11400000, guid: 6e4f3bd486fb5bc44aa22ff6a3c2849e, type: 2}
-  cardName: {fileID: 7815146904089972042}
-  cardDescription: {fileID: 7815146902553373173}
+  cardNameText: {fileID: 7815146904089972042}
+  cardDescriptionText: {fileID: 7815146902553373173}
+  cardName: 
+  cardNumber: 0
+  cardUnits: 0
+  cardCap: 0
+  cardDescription: 
 --- !u!114 &7023361222628767090
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,8 +9,14 @@ public class PowerupCardDisplay : MonoBehaviour
     public PowerupCard[] powerupCards;
 
     //public Image icon;
-    public TextMeshProUGUI cardName;
-    public TextMeshProUGUI cardDescription;
+    public TextMeshProUGUI cardNameText;
+    public TextMeshProUGUI cardDescriptionText;
+
+    public string cardName;
+    public int cardNumber;
+    public PowerupCard.Units cardUnits;
+    public int cardCap;
+    public string cardDescription;
 
     private CardInteractor interactor;
     private CardInteractor.CardType cardType;
@@ -18,7 +24,7 @@ public class PowerupCardDisplay : MonoBehaviour
     private void Awake()
     {
         interactor = GetComponent<CardInteractor>();
-        cardType = CardInteractor.CardType.Buff;
+        cardType = CardInteractor.CardType.Powerup;
     }
 
     public void SetCard(int cardIndex, CardInteractor.CardPosition position)
@@ -40,7 +46,7 @@ public class PowerupCardDisplay : MonoBehaviour
         {
             interactor.CreateCard(cardType, CardInteractor.CardPosition.Middle);
         }
-        if (positionIndex == 2)
+        else if (positionIndex == 2)
         {
             interactor.CreateCard(cardType, CardInteractor.CardPosition.Right);
         }
@@ -54,9 +60,30 @@ public class PowerupCardDisplay : MonoBehaviour
     {
         Debug.Log($"Filling card with data! Index = {index}");
 
+        cardName = powerupCards[index].powerupName;
+        cardNumber = powerupCards[index].powerupNumber;
+        cardUnits = powerupCards[index].powerupUnits;
+        cardCap = powerupCards[index].powerupCap;
+        cardDescription = powerupCards[index].powerupDescription;
+
+
         //icon.sprite = powerupCards[index].icon;
-        cardName.text = powerupCards[index].powerupName;
-        cardDescription.text = powerupCards[index].powerupDescription;
+        switch (cardUnits)
+        {
+            case PowerupCard.Units.percent:
+                {
+                    cardNameText.text = $"{cardName} +{cardNumber}%";
+                    cardDescriptionText.text = $"{cardDescription} {cardNumber}%";
+                    break;
+                }
+            case PowerupCard.Units.points:
+                {
+                    cardNameText.text = $"{cardName} +{cardNumber}";
+                    cardDescriptionText.text = $"{cardDescription} {cardNumber} points";
+                    break;
+                }
+        }
+        
     }
 
 }

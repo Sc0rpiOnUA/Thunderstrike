@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: MaxHealth
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  powerupName: Max Health +25%
-  powerupDescription: Increases your max health by 25%
+  powerupName: Max Health
+  powerupNumber: 25
+  powerupUnits: 1
+  powerupCap: 1000
+  powerupDescription: Increases your max health by

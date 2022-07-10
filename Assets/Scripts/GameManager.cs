@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
         GameObject newCard = Instantiate(buffCardTemplate, cardCanvas.transform);
         PowerupCardDisplay powerupCardDisplay = newCard.GetComponent<PowerupCardDisplay>();
 
-        powerupCardDisplay.SetCard(Random.Range(0, 7), cardPosition);
+        powerupCardDisplay.SetCard(Random.Range(0, 6), cardPosition);
     }
 
     public void SelectCard(CardInteractor.CardType cardType, GameObject selectedCard)
@@ -363,61 +363,90 @@ public class GameManager : MonoBehaviour
 
         if(interactor.cardType == CardInteractor.CardType.Weapon)
         {
-            WeaponCardDisplay weaponCardDisplay = interactor.gameObject.GetComponent<WeaponCardDisplay>();
+            WeaponCardDisplay weaponCardDisplay = selectedCard.GetComponent<WeaponCardDisplay>();
             Weapon.WeaponName newWeaponName = weaponCardDisplay.weaponName;
 
             playerStatus.ChangeWeapon(new Weapon(newWeaponName));
         }
-        else if(interactor.cardType == CardInteractor.CardType.Buff)
+        else if(interactor.cardType == CardInteractor.CardType.Powerup)
         {
-            PowerupCardDisplay powerupCardDisplay = interactor.gameObject.GetComponent<PowerupCardDisplay>();
-            string buffName = powerupCardDisplay.cardName.text;
-            ReceiveBuff(buffName);
+            PowerupCardDisplay powerupCardDisplay = selectedCard.GetComponent<PowerupCardDisplay>();
+            string powerupName = powerupCardDisplay.cardName;
+            int powerupNumber = powerupCardDisplay.cardNumber;
+            int powerupCap = powerupCardDisplay.cardCap;
+            ReceiveBuff(powerupName, powerupNumber, powerupCap);
         }
 
         Fight(3f, enemiesToSpawn);
     }
 
-    public void ReceiveBuff(string buffName)
+    public void ReceiveBuff(string powerupName, int powerupNumber, int powerupCap)
     {
-        switch (buffName)
+        switch (powerupName)
         {
-            case "Bullet Speed +25%":
+            case "Bullet Speed":
                 {
-                    playerStatus.IncreaseBulletSpeed(25);
+                    playerStatus.IncreaseBulletSpeed(powerupNumber, powerupCap);
                     break;
                 }
-            case "Damage +25%":
+            case "Damage":
                 {
-                    playerStatus.IncreaseDamage(25);
+                    playerStatus.IncreaseDamage(powerupNumber, powerupCap);
                     break;
                 }
-            case "Fire Rate +25%":
+            case "Fire Rate":
                 {
-                    playerStatus.IncreaseFirerate(25);
+                    playerStatus.IncreaseFirerate(powerupNumber, powerupCap);
                     break;
                 }
-            case "Health Chance +5%":
+            case "Health Chance":
                 {
-                    healthkitChancePercentage += 5;
+                    IncreaseHealthkitChance(powerupNumber, powerupCap);
                     break;
                 }
-            case "Health Potency +25%":
+            case "Health Potency":
                 {
-                    float hpIncrease = healthkitSmallHealth * 1.25f;
-                    healthkitSmallHealth = (int)hpIncrease;
+                    IncreaseHealingAmount(powerupNumber, powerupCap);
                     break;
                 }
-            case "Max Health +25%":
+            case "Max Health":
                 {
-                    playerStatus.IncreaseMaxHealth(25);
+                    playerStatus.IncreaseMaxHealth(powerupNumber, powerupCap);
                     break;
                 }
-            case "Movement Speed +20%":
+            case "Movement Speed":
                 {
-                    playerStatus.IncreaseMovementSpeed(25);
+                    playerStatus.IncreaseMovementSpeed(powerupNumber, powerupCap);
                     break;
                 }
+        }
+    }
+
+    private void IncreaseHealthkitChance(int chance, int cap)
+    {
+        int newChance = healthkitChancePercentage + chance;
+
+        if(newChance > cap)
+        {
+            healthkitChancePercentage = cap;
+        }
+        else
+        {
+            healthkitChancePercentage = newChance;
+        }
+    }
+
+    private void IncreaseHealingAmount(int amount, int cap)
+    {
+        float hpIncrease = healthkitSmallHealth * (1 + (amount / 100));
+        
+        if ((int)hpIncrease > cap)
+        {
+            healthkitSmallHealth = cap;
+        }
+        else
+        {
+            healthkitSmallHealth = (int)hpIncrease;
         }
     }
 

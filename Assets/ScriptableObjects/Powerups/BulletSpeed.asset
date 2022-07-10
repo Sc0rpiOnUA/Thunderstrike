@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: BulletSpeed
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  powerupName: Bullet Speed +25%
-  powerupDescription: Increases the bullet speed of your weapon by 20%
+  powerupName: Bullet Speed
+  powerupNumber: 20
+  powerupUnits: 1
+  powerupCap: 100
+  powerupDescription: Increases the bullet speed of your weapon by

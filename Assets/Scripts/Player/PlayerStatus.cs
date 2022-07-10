@@ -170,40 +170,93 @@ public class PlayerStatus : MonoBehaviour
         weaponGameObject = playerInventory.switchWeaponRightHand(newWeapon.weaponName);
     }
 
-    public void IncreaseDamage(int percentage)
+    public void IncreaseDamage(int percentage, int cap)
     {
         Debug.Log($"Increasing damage by {percentage}%");
-        weapon.damage *= (1 + ((float)percentage / 100));
+
+        float damage = weapon.damage * (1 + ((float)percentage / 100));
+
+        if (damage > cap)
+        {
+            weapon.damage = cap;
+        }
+        else
+        {
+            weapon.damage = damage;
+        }
+
         Debug.Log($"Weapon damage = {weapon.damage}");
     }
 
-    public void IncreaseFirerate(int percentage)
+    public void IncreaseFirerate(int percentage, int cap)
     {
         Debug.Log($"Increasing firerate by {percentage}%");
-        weapon.firerate *= (1 + ((float)percentage / 100));
+
+        float firerate = weapon.firerate * (1 + ((float)percentage / 100));
+
+        if (firerate > cap)
+        {
+            weapon.firerate = cap;
+        }
+        else
+        {
+            weapon.firerate = firerate;
+        }
+
         Debug.Log($"Weapon firerate = {weapon.firerate}");
     }
 
-    public void IncreaseBulletSpeed(int percentage)
+    public void IncreaseBulletSpeed(int percentage, int cap)
     {
         Debug.Log($"Increasing bullet speed by {percentage}%");
-        weapon.bulletSpeed *= (1 + ((float)percentage / 100));
+
+        float bulletSpeed = weapon.bulletSpeed * (1 + ((float)percentage / 100));
+
+        if (bulletSpeed > cap)
+        {
+            weapon.bulletSpeed = cap;
+        }
+        else
+        {
+            weapon.bulletSpeed = bulletSpeed;
+        }
+
         Debug.Log($"Weapon vullet speed = {weapon.bulletSpeed}");
     }
 
-    public void IncreaseMaxHealth(int percentage)
+    public void IncreaseMaxHealth(int percentage, int cap)
     {
         Debug.Log($"Increasing max health by {percentage}%");
         float newHealth = maxHealth * (1 + ((float)percentage / 100));
-        maxHealth = (int)newHealth;
+
+        if(newHealth > cap)
+        {
+            maxHealth = cap;
+        }
+        else
+        {
+            maxHealth = (int)newHealth;
+        }
+        
         healthBar.SetMaxHealth(maxHealth);
         Debug.Log($"New health = {newHealth}, maxHealth = {maxHealth}");
     }
 
-    public void IncreaseMovementSpeed(int percentage)
+    public void IncreaseMovementSpeed(int percentage, int cap)
     {
         Debug.Log($"Increasing movement speed by {percentage}%");
-        speed *= (1 + ((float)percentage / 100));
+
+        float movementSpeed = speed * (1 + ((float)percentage / 100));
+
+        if (movementSpeed > cap)
+        {
+            speed = cap;
+        }
+        else
+        {
+            speed = movementSpeed;
+        }
+
         Debug.Log($"Weapon movement speed = {speed}");
     }
 

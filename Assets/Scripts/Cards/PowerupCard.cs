@@ -9,6 +9,10 @@ public class PowerupCard : ScriptableObject
     public Sprite icon;
 
     public string powerupName;
+    public int powerupNumber;
+    public enum Units { points, percent};
+    public Units powerupUnits;
+    public int powerupCap;
     public string powerupDescription;
 }
 
